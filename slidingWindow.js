@@ -1,4 +1,4 @@
-// Sliding Window
+// Sliding Window - o(n) complexity
 
 /* Write a function called maxSubarraySum which
 accepts an array of integers and a number called n.
@@ -10,7 +10,7 @@ n consecutive elements in the array. */
 // create a variable to keep track of sum
 
 function maxSubarraySum(arr, num){
-    if (num > arr.length){
+    if (num > arr.length){ // If the number is more than the length of the array
         return null;
     }
 
