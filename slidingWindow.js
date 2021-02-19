@@ -36,16 +36,48 @@ to the integer passed to the function. If there isn't
 one, return 0 instead. */
 
 function minSubArrayLen(arr, num) {
-    let sum = 0;
-    let temSum = 0;
+    let result = Number.MAX_SAFE_INTEGER
+    let left = 0
+    let sum = 0
 
-    if (arr.length < num) return 0;
-    for (let i = 0; i < num; i++) {
-        sum += arr[i];
+    for(let i = 0; i < arr.length; i++){
+        sum += arr[i]
+        while(sum >= num) {
+            result = Math.min(result, i - left + 1)
+            sum -= arr[left++]
+        }
     }
-
-    tempSum = sum;
-    
-
-
+    return result === Number.MAX_SAFE_INTEGER ? 0 : result // If result is equal to Number.Max.. then return 0. If not (:) then return the result
 }
+([2,6,9,2,1,8,5,6,], 3) // returns an array of size 2 because there are 2 numbers that add up to 3 (2 and 1)
+
+// Challenge
+
+/* Write a function called findLongestSubstring, which
+accepts a string and returns the length of the longest
+substring with all distinct characters. */
+
+/* The difference between the pointers = the max
+firstPointer - secondPointer + 1. This is because
+we need to add one to offset (e.g., 0 - 0 + 1 = 1) */
+
+/* When firstPointer moves to a char that is already in the new array 
+(it's been repeated), then secondPointer moves up 1 */
+
+function findLongestSubstring(str) {
+    let longest = 0; // length of longest sub string
+    let seen = {}; // characters seen before
+    let start = 0; // start of the substring
+
+    for (let i = 0; i < str.length; i++) {
+        let char = str[i] // loop over string and get the current char
+        if(seen[char]) { // check if we've seen the current char before
+           start = Math.max(start, seen[char]); // if we have seen it then we move up the starting point of the substring
+        }
+        longest = Math.max(longest, i - start + 1); // check if we need to update longest with every iteration
+        seen[char] = i + 1; // mark char as seen (update the index where we last saw it)
+        }
+        return longest;   
+}
+
+('thisisawesome') 
